@@ -14,6 +14,7 @@ services:
 #      - PWA_APPNAME=code-server #optional
     volumes:
      - /etc/timezone:/etc/timezone
+     - ${WORKSPACE}:/config/workspace
      - vs-code-server:/config
     ports:
       - ${PORT}:8443
