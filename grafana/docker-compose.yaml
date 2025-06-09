@@ -1,0 +1,16 @@
+services:
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - ${PORT}:3000
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${PASSWORD}
+
+volumes:
+  grafana:
+    external: true
