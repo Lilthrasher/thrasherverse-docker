@@ -5,8 +5,8 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - PASSWORD=${PASSWORD} #optional
-      - PWA_APPNAME=ThrasherVerse Code #optional
+      - PASSWORD=${PASSWORD}
+      - PWA_APPNAME=ThrasherVerse Code
     volumes:
      - /etc/timezone:/etc/timezone
      - ${WORKSPACE}:/config/workspace
