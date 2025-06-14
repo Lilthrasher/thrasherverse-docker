@@ -2,6 +2,7 @@ services:
   vs-code-server:
     image: lscr.io/linuxserver/code-server:latest
     container_name: vs-code-server
+    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
@@ -13,7 +14,6 @@ services:
      - vs-code-server:/config
     ports:
       - ${PORT}:8443
-    restart: unless-stopped
 
 volumes:
   vs-code-server:
