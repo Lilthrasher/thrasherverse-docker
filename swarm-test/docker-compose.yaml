@@ -2,7 +2,9 @@ services:
   metube:
     image: hashicorp/http-echo
     container_name: echo
-    command: ["-text=Hello from $$(hostname)"]
+    environment:
+      NODE_NAME: ${HOSTNAME}
+    command: ["-text=Hello from $$NODE_NAME"]
     deploy:
       replicas: 2
       restart_policy:
