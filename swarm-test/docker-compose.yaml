@@ -1,19 +1,14 @@
 services:
   metube:
-    image: alpine
-    container_name: alpine
-    command: >
-      sh -c "apk add --no-cache busybox-extras &&
-         while true; do
-           echo -e 'HTTP/1.1 200 OK\r\n\r\nResponse from container: ' \$(hostname) |
-           nc -l -p 80;
-         done"
+    image: hashicorp/http-echo
+    container_name: echo
+    command: ["-text=Hello from $(hostname)"]
     deploy:
       replicas: 2
       restart_policy:
         condition: on-failure
     ports:
-      - target: 80
+      - target: 5678
         published: 8080
         mode: ingress
     networks:
