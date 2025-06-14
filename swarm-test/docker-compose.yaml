@@ -1,17 +1,14 @@
 services:
-  metube:
-    image: hashicorp/http-echo
-    container_name: echo
-    environment:
-      NODE_NAME: ${HOSTNAME}
-    command: ["-text=Hello from $$NODE_NAME"]
+  test:
+    image: alexta69/metube
+    container_name: test
     deploy:
       replicas: 2
       restart_policy:
         condition: on-failure
     ports:
-      - target: 5678
-        published: 8080
+      - target: 8081
+        published: 8081
         mode: ingress
     networks:
       - frontend
