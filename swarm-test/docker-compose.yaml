@@ -1,19 +1,17 @@
 services:
   metube:
-    image: alexta69/metube
-    container_name: metube
+    image: alpine
+    container_name: alpine
     deploy:
       replicas: 2
       restart_policy:
         condition: on-failure
     ports:
-      - target: 8081
-        published: 8081
+      - target: 80
+        published: 8080
         mode: ingress
     networks:
       - frontend
-    environment:
-      - YTDL_OPTIONS={"ignoreerrors":true}
 
 networks:
   frontend:
