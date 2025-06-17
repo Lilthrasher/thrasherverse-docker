@@ -9,6 +9,7 @@ services:
       - KASM_PORT=${HTTPS_PORT}
     volumes:
       - kasm:/opt
+      - kasm-profiles/profiles
     ports:
       - ${SETUP_PORT}:3000
       - ${HTTPS_PORT}:443
@@ -16,4 +17,6 @@ services:
 
 volumes:
   kasm:
+    external: true
+  kasm-profiles:
     external: true
