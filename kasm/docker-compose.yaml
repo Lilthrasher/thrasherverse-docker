@@ -6,11 +6,12 @@ services:
     security_opt:
       - apparmor:rootlesskit #optional
     environment:
-      - KASM_PORT=443
+      - KASM_PORT=${HTTPS_PORT}
     volumes:
       - kasm:/opt
     ports:
-      - 443:443
+      - ${SETUP_PORT}:3000
+      - ${HTTPS_PORT}:443
     restart: unless-stopped
 
 volumes:
