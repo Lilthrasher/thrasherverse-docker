@@ -10,8 +10,10 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone
       - nginx-proxy-manager:/data
-      - nginx-proxy-manager:/etc/letsencrypt
+      - nginx-proxy-manager-certs:/etc/letsencrypt
 
 volumes:
   nginx-proxy-manager:
+    external: true
+  nginx-proxy-manager-certs:
     external: true
