@@ -5,9 +5,9 @@ services:
     restart: always
     networks:
       - frontend
-    ports:
-      - 8000:8000
-      - 9443:9443
+    # ports:
+    #   - 8000:8000
+    #   - 9443:9443
     volumes:
       - /etc/timezone:/etc/timezone
       - /var/run/docker.sock:/var/run/docker.sock
