@@ -4,7 +4,7 @@ services:
     container_name: portainer
     restart: always
     networks:
-      - frontend
+      - proxy
     volumes:
       - /etc/timezone:/etc/timezone
       - /var/run/docker.sock:/var/run/docker.sock
@@ -17,7 +17,7 @@ services:
       - traefik.http.services.portainer.loadbalancer.server.port=9000
 
 networks:
-  frontend:
+  proxy:
     external: true
 
 volumes:

@@ -3,7 +3,7 @@ services:
     image: traefik:latest
     container_name: traefik
     networks:
-      - frontend
+      - proxy
     ports:
       - 80:80
       - 443:443
@@ -30,5 +30,5 @@ services:
       # - traefik.http.services.traefik.loadbalancer.server.port=443
 
 networks:
-  frontend:
+  proxy:
     external: true
