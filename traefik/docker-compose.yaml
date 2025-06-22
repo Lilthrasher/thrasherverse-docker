@@ -15,6 +15,10 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entryPoints.web.address=:80"
       - "--entryPoints.websecure.address=:443"
+      - "--certificatesresolvers.cloudflare.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.cloudflare.acme.storage=acme.json"
+        # used during the challenge
+      - "--certificatesresolvers.cloudflare.acme.httpchallenge.entrypoint=web"
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     volumes:
