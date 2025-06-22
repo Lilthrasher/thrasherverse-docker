@@ -5,19 +5,16 @@ services:
     restart: always
     networks:
       - frontend
-    # ports:
-    #   - 8000:8000
-    #   - 9443:9443
     volumes:
       - /etc/timezone:/etc/timezone
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer:/data
     labels:
       - traefik.enable=true
-      - traefik.http.routers.portainer-https.rule=Host("containers.thrasherverse.com")
-      - traefik.http.routers.portainer-https.tls=true
-      - traefik.http.routers.portainer-https.tls.certresolver=cloudflare
-      - traefik.http.routers.portainer-https.entrypoints=websecure
+      - traefik.http.routers.portainer.rule=Host("containers.thrasherverse.com")
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.routers.portainer.tls.certresolver=cloudflare
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
 
 networks:
   frontend:
