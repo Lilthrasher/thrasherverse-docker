@@ -5,6 +5,8 @@ services:
     privileged: true
     security_opt:
       - apparmor:rootlesskit #optional
+    devices:
+      - /dev/dri:/dev/dri
     environment:
       - KASM_PORT=${HTTPS_PORT}
     volumes:
