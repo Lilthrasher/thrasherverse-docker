@@ -1,6 +1,6 @@
 services:
   watchtower:
-    image: containrrr/watchtower
+    image: containrrr/watchtower:latest
     container_name: watchtower
     restart: unless-stopped
     ports:
@@ -13,4 +13,3 @@ services:
       - WATCHTOWER_SCHEDULE=0 0 0 * * *
       - WATCHTOWER_HTTP_API_METRICS=true
       - WATCHTOWER_HTTP_API_TOKEN=${API_TOKEN}
-      - DOCKER_HOST=tcp://10.27.1.50:9001
