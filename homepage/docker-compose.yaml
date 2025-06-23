@@ -12,3 +12,5 @@ services:
       - ${IMAGE_DIR}:/app/public/images
     environment:
       - HOMEPAGE_ALLOWED_HOSTS=${HOSTS}
+      - PUID=${PUID}
+      - PGID=${PGID}
