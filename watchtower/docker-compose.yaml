@@ -1,0 +1,16 @@
+services:
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    ports:
+      - ${PORT}:8080
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 0 * * *
+      - WATCHTOWER_HTTP_API_METRICS=true
+      - WATCHTOWER_HTTP_API_TOKEN=${API_TOKEN}
+      - DOCKER_HOST=tcp://10.27.1.50:9001,tcp://10.27.1.60:9001,tcp://10.27.1.70:9001
