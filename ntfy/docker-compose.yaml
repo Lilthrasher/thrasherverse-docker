@@ -1,0 +1,20 @@
+services:
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: ntfy
+    user: ${PUID}:${PGID}
+    ports:
+      - ${PORT}:80
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ntfy:/etc/ntfy
+      - ntfy-cache:/var/cache/ntfy
+    command:
+      - serve
+
+volumes:
+  ntfy:
+    external: true
+  ntfy-cache:
+    external: true
