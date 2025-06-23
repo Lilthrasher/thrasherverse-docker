@@ -1,0 +1,14 @@
+services:
+  speedtest:
+    image: germannewsmaker/myspeed:latest
+    container_name: speedtest
+    restart: unless-stopped
+    ports:
+      - ${PORT}:5216
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - speedtest:/myspeed/data
+  
+volumes:
+  speedtest:
+    external: true
