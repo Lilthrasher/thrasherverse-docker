@@ -2,6 +2,7 @@ services:
   ntfy:
     image: binwiederhier/ntfy:latest
     container_name: ntfy
+    restart: unless-stopped
     user: ${PUID}:${PGID}
     ports:
       - ${PORT}:80
