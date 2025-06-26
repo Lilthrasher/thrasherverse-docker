@@ -12,6 +12,7 @@ services:
       - DEVICE=Arc
       - OLLAMA_INTEL_GPU=true
       - HOSTNAME=intel-llm
+      - OLLAMA_NUM_GPU=999
       - ZES_ENABLE_SYSMAN=1
     restart: unless-stopped
     command: sh -c 'mkdir -p /llm/ollama && cd /llm/ollama && init-ollama && exec ./ollama serve'
