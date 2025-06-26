@@ -11,7 +11,7 @@ services:
       # - OLLAMA_HOST=0.0.0.0
       # - DEVICE=Arc
       # - OLLAMA_INTEL_GPU=true
-      # - HOSTNAME=intel-llm
+      - HOSTNAME=intel-llm
       # - OLLAMA_NUM_GPU=999
       # - ZES_ENABLE_SYSMAN=1
     restart: unless-stopped
