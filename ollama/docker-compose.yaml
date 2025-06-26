@@ -7,7 +7,7 @@ services:
     volumes:
       - models:/root/.ollama/models
     # environment:
-      # - no_proxy=localhost,127.0.0.1
+      - no_proxy=localhost,127.0.0.1
       # - OLLAMA_HOST=0.0.0.0
       # - DEVICE=Arc
       # - OLLAMA_INTEL_GPU=true
