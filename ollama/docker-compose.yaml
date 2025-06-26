@@ -6,7 +6,7 @@ services:
       - /dev/dri:/dev/dri
     volumes:
       - models:/root/.ollama/models
-    # environment:
+    environment:
       - no_proxy=localhost,127.0.0.1
       # - OLLAMA_HOST=0.0.0.0
       # - DEVICE=Arc
