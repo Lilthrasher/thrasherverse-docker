@@ -9,8 +9,8 @@ services:
     environment:
       - no_proxy=localhost,127.0.0.1
       - OLLAMA_HOST=0.0.0.0
-      # - DEVICE=Arc
-      # - OLLAMA_INTEL_GPU=true
+      - DEVICE=Arc
+      - OLLAMA_INTEL_GPU=true
       - HOSTNAME=intel-llm
       # - OLLAMA_NUM_GPU=999
       # - ZES_ENABLE_SYSMAN=1
