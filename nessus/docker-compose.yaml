@@ -1,0 +1,16 @@
+services:
+  nessus:
+    image: tenable/nessus:latest
+    container_name: nessus
+    restart: unless-stopped
+    ports:
+      - ${PORT}:8834
+    environment:
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
+    volumes:
+      - nessus:/opt/nessus
+
+volumes:
+  nessus:
+    external: true
