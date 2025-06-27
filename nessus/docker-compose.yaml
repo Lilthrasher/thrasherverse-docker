@@ -1,6 +1,6 @@
 services:
   nessus:
-    image: tenable/nessus:latest
+    image: tenable/nessus:latest-ubuntu
     container_name: nessus
     restart: unless-stopped
     ports:
