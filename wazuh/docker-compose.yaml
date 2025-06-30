@@ -140,4 +140,4 @@ volumes:
 
 networks:
   swarm:
-    driver: overlay
+    external: true
