@@ -1,12 +1,37 @@
 services:
-  metube:
-    image: alexta69/metube:latest
+  wazuh-manager:
+    image: wazuh/wazuh-manager:4.12.0
+    hostname: wazuh-manager
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 655360
+        hard: 655360
     ports:
-      - ${PORT}:8081
-    volumes:
-      - metube:/downloads
+      - "1514:1514" # TCP
+      - "1515:1515" # TCP
+      - "514:514/udp" # UDP
+      - "${API_PORT}:55000" # API
     environment:
-      - YTDL_OPTIONS={"ignoreerrors":true}
+      - INDEXER_URL=https://wazuh-indexer:9200
+      - INDEXER_USERNAME=${INDEX_USER}
+      - INDEXER_PASSWORD=${INDEX_PASS}
+      - FILEBEAT_SSL_VERIFICATION_MODE=full
+      - SSL_CERTIFICATE_AUTHORITIES=/etc/ssl/root-ca.pem
+      - SSL_CERTIFICATE=/etc/ssl/filebeat.pem
+      - SSL_KEY=/etc/ssl/filebeat.key
+      - API_USERNAME=${API_USER}
+      - API_PASSWORD=${API_PASS}
+    volumes:
+      - ${CEPH_MNT}/wazuh-management:/var/ossec
+      - ${CEPH_MNT}/filebeat_etc:/etc/filebeat
+      - ${CEPH_MNT}/filebeat_var:/var/lib/filebeat
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/root-ca-manager.pem:/etc/ssl/root-ca.pem
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/wazuh.manager.pem:/etc/ssl/filebeat.pem
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/wazuh.manager-key.pem:/etc/ssl/filebeat.key
+      - ${CEPH_MNT}/config/wazuh_cluster/wazuh_manager.conf:/wazuh-config-mount/etc/ossec.conf
     deploy:
       replicas: 2
       restart_policy:
@@ -14,9 +39,66 @@ services:
     networks:
       - swarm
 
-volumes:
-  metube:
-    external: true
+  wazuh-indexer:
+    image: wazuh/wazuh-indexer:4.12.0
+    hostname: wazuh-indexer
+    ports:
+      - "${INDEX_PORT}:9200" # Indexer HTTPS
+    environment:
+      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ${CEPH_MNT}/wazuh-indexer-data:/var/lib/wazuh-indexer
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/wazuh.indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh.indexer.key
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/wazuh.indexer.pem:/usr/share/wazuh-indexer/certs/wazuh.indexer.pem
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem
+      - ${CEPH_MNT}/config/wazuh_indexer/wazuh.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml
+      - ${CEPH_MNT}/config/wazuh_indexer/internal_users.yml:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    networks:
+      - swarm
+
+  wazuh-dashboard:
+    image: wazuh/wazuh-dashboard:4.12.0
+    hostname: wazuh-dashboard
+    ports:
+      - ${DASH_PORT}:5601 # Dashboard HTTPS
+    environment:
+      - INDEXER_USERNAME=${INDEX_USER}
+      - INDEXER_PASSWORD=${INDEX_PASS}
+      - WAZUH_API_URL=https://wazuh-manager
+      - DASHBOARD_USERNAME=${DASH_USER}
+      - DASHBOARD_PASSWORD=${DASH_PASS}
+      - API_USERNAME=${API_USER}
+      - API_PASSWORD=${API_PASS}
+    volumes:
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/wazuh.dashboard.pem:/usr/share/wazuh-dashboard/certs/wazuh-dashboard.pem
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/wazuh.dashboard-key.pem:/usr/share/wazuh-dashboard/certs/wazuh-dashboard-key.pem
+      - ${CEPH_MNT}/config/wazuh_indexer_ssl_certs/root-ca.pem:/usr/share/wazuh-dashboard/certs/root-ca.pem
+      - ${CEPH_MNT}/config/wazuh_dashboard/opensearch_dashboards.yml:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml
+      - ${CEPH_MNT}/config/wazuh_dashboard/wazuh.yml:/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml
+      - ${CEPH_MNT}/wazuh-dashboard-config:/usr/share/wazuh-dashboard/data/wazuh/config
+      - ${CEPH_MNT}/wazuh-dashboard-custom:/usr/share/wazuh-dashboard/plugins/wazuh/public/assets/custom
+    links:
+      - wazuh-indexer:wazuh-indexer
+      - wazuh-manager:wazuh-manager
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - swarm
 
 networks:
   swarm:
