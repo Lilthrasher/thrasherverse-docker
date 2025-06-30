@@ -1,18 +1,23 @@
 services:
-  test:
-    image: alexta69/metube
-    container_name: test
+  metube:
+    image: alexta69/metube:latest
+    ports:
+      - ${PORT}:8081
+    volumes:
+      - metube:/downloads
+    environment:
+      - YTDL_OPTIONS={"ignoreerrors":true}
     deploy:
       replicas: 2
       restart_policy:
         condition: on-failure
-    ports:
-      - target: 8081
-        published: 8081
-        mode: ingress
     networks:
-      - frontend
+      - swarm
+
+volumes:
+  metube:
+    external: true
 
 networks:
-  frontend:
-    driver: overlay
+  swarm:
+    external: true
