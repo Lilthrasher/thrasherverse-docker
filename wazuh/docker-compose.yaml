@@ -1,6 +1,6 @@
 services:
   wazuh-manager:
-    image: wazuh/wazuh-manager:latest
+    image: wazuh/wazuh-manager:5.0.0
     hostname: wazuh-manager
     ulimits:
       memlock:
@@ -40,7 +40,7 @@ services:
       - swarm
 
   wazuh-indexer:
-    image: wazuh/wazuh-indexer:latest
+    image: wazuh/wazuh-indexer:5.0.0
     hostname: wazuh-indexer
     ports:
       - "${INDEX_PORT}:9200" # Indexer HTTPS
@@ -70,7 +70,7 @@ services:
       - swarm
 
   wazuh-dashboard:
-    image: wazuh/wazuh-dashboard:latest
+    image: wazuh/wazuh-dashboard:5.0.0
     hostname: wazuh-dashboard
     ports:
       - ${DASH_PORT}:5601 # Dashboard HTTPS
