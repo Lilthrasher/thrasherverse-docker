@@ -1,0 +1,36 @@
+services:
+  wiki-js:
+    image: requarks/wiki:2
+    container_name: wiki-js
+    depends_on:
+      - db
+    ports:
+      - ${}:3000
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - UPGRADE_DB=true
+    volumes:
+      - wikidata:/wiki/data
+    restart: unless-stopped
+
+  db:
+    image: postgres:17
+    container_name: wikijs-db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  wikidata:
+    external: true
+  pgdata:
+    external: true
