@@ -44,3 +44,7 @@ volumes:
     external: true
   pgdata-meshtastic:
     external: true
+
+networks:
+  swarm:
+    external: true
