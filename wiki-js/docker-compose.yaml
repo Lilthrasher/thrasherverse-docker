@@ -1,14 +1,14 @@
 services:
-  wiki-js:
+  wiki-js-meshtastic:
     image: requarks/wiki:2
-    container_name: wiki-js
+    container_name: wiki-js-meshtastic
     depends_on:
       - db
     ports:
-      - ${}:3000
+      - ${PORT}:3000
     environment:
       - DB_TYPE=postgres
-      - DB_HOST=db
+      - DB_HOST=wikijs-db-meshtastic
       - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
@@ -18,9 +18,9 @@ services:
       - wikidata:/wiki/data
     restart: unless-stopped
 
-  db:
+  wikijs-db-meshtastic:
     image: postgres:17
-    container_name: wikijs-db
+    container_name: wikijs-db-meshtastic
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
