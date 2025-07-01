@@ -1,7 +1,6 @@
 services:
   wikijs-meshtastic:
     image: requarks/wiki:2
-    container_name: wikijs-meshtastic
     depends_on:
       - db
     ports:
@@ -25,7 +24,6 @@ services:
 
   wikijs-db-meshtastic:
     image: postgres:17
-    container_name: wikijs-db-meshtastic
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
