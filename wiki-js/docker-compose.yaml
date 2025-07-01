@@ -1,7 +1,7 @@
 services:
-  wiki-js-meshtastic:
+  wikijs-meshtastic:
     image: requarks/wiki:2
-    container_name: wiki-js-meshtastic
+    container_name: wikijs-meshtastic
     depends_on:
       - db
     ports:
