@@ -15,8 +15,13 @@ services:
       - DB_NAME=${DB_NAME}
       - UPGRADE_DB=true
     volumes:
-      - wikidata:/wiki/data
-    restart: unless-stopped
+      - wikidata-meshtastic:/wiki/data
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    networks:
+      - swarm
 
   wikijs-db-meshtastic:
     image: postgres:17
@@ -26,11 +31,16 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_DB=${DB_NAME}
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    restart: unless-stopped
+      - pgdata-meshtastic:/var/lib/postgresql/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - swarm
 
 volumes:
-  wikidata:
+  wikidata-meshtastic:
     external: true
-  pgdata:
+  pgdata-meshtastic:
     external: true
