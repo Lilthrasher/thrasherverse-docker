@@ -3,7 +3,7 @@ services:
     image: requarks/wiki:2
     container_name: wikijs-server
     depends_on:
-      - db
+      - wikijs-db-meshtastic
     ports:
       - ${PORT}:3000
     environment:
