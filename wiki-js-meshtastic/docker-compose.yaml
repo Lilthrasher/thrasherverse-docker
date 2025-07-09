@@ -1,7 +1,7 @@
 services:
   wikijs-burningmesh:
     image: requarks/wiki:2
-    container_name: wikijs-server
+    container_name: wikijs-server-burningmesh
     depends_on:
       - wikijs-db-burningmesh
     ports:
@@ -19,7 +19,7 @@ services:
 
   wikijs-db-burningmesh:
     image: postgres:17
-    container_name: wikijs-postgres
+    container_name: wikijs-postgres-burningmesh
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
