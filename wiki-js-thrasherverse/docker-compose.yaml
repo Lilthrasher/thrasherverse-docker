@@ -1,0 +1,34 @@
+services:
+  wikijs-thrasherverse:
+    image: requarks/wiki:2
+    container_name: wikijs-server-thrasherverse
+    depends_on:
+      - wikijs-db-thrasherverse
+    ports:
+      - ${PORT}:3000
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=wikijs-db-thrasherverse
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - UPGRADE_DB=true
+    volumes:
+      - wikidata-thrasherverse:/wiki/data
+
+  wikijs-db-thrasherverse:
+    image: postgres:17
+    container_name: wikijs-postgres-thrasherverse
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - pgdata-thrasherverse:/var/lib/postgresql/data
+
+volumes:
+  wikidata-thrasherverse:
+    external: true
+  pgdata-thrasherverse:
+    external: true
