@@ -1,0 +1,14 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - ${PORT}:5678
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
+    external: true
