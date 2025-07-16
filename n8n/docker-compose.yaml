@@ -8,6 +8,9 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone
       - n8n_data:/home/node/.n8n
+    environment:
+      - N8N_PROTOCOL=https
+      - N8N_HOST=${HOST}
 
 volumes:
   n8n_data:
