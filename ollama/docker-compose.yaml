@@ -2,6 +2,8 @@ services:
   intel-llm:
     image: docker.io/intelanalytics/ipex-llm-inference-cpp-xpu:latest
     container_name: intel-llm
+    ports:
+      - 11434:11434
     devices:
       - /dev/dri:/dev/dri
     volumes:
