@@ -12,17 +12,14 @@ services:
       - TD_MONGODB_DATABASE=trudesk
       - ELATICSEARCH_URI="http://elasticsearch:9200"
     volumes:
-      - data-trudesk/uploads:/usr/src/trudesk/public/uploads
-      - data-trudesk/plugins:/usr/src/trudesk/plugins
-      - data-trudesk/backups:/usr/src/trudesk/backups
+      - data-trudesk:/usr/src/trudesk
 
   mongo:
     image: mongo:5.0
     container_name: trudesk-mongodb
     restart: unless-stopped
     volumes:
-      - mongodata-trudesk/db:/data/db
-      - mongodata-trudesk/configdb:/data/configdb
+      - mongodata-trudesk:/data
 
   elasticsearch:
     image: elasticsearch:8.0.0
@@ -34,12 +31,12 @@ services:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
     volumes:
-      - searchdata-trudesk/elasticsearch:/usr/share/elasticsearch/data
+      - elasticdata-trudesk:/usr/share/elasticsearch/data
 
 volumes:
   data-trudesk:
     external: true
   mongodata-trudesk:
     external: true
-  searchdata-trudesk:
+  elasticdata-trudesk:
     external: true
