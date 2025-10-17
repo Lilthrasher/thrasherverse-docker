@@ -8,36 +8,20 @@ services:
     environment:
       - NODE_ENV=production
       - TRUDESK_DOCKER=true
-      - TD_MONGODB_SERVER=mongo
+      - TD_MONGODB_SERVER=mongodb
       - TD_MONGODB_DATABASE=trudesk
     volumes:
       - data-trudesk:/usr/src/trudesk
 
-  mongo:
+  mongodb:
     image: mongo:5.0
     container_name: trudesk-mongodb
     restart: unless-stopped
     volumes:
       - mongodata-trudesk:/data
 
-  elasticsearch:
-    image: elasticsearch:8.0.0
-    container_name: trudesk-elasticsearch
-    restart: unless-stopped
-    ports:
-      - ${ES_PORT}:9200
-    environment:
-      - xpack.security.enabled=false
-      - xpack.security.http.ssl.enabled=false
-      - discovery.type=single-node
-      - bootstrap.memory_lock=true
-    volumes:
-      - elasticdata-trudesk:/usr/share/elasticsearch/data
-
 volumes:
   data-trudesk:
     external: true
   mongodata-trudesk:
-    external: true
-  elasticdata-trudesk:
     external: true
