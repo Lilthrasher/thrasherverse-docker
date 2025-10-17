@@ -10,7 +10,6 @@ services:
       - TRUDESK_DOCKER=true
       - TD_MONGODB_SERVER=mongo
       - TD_MONGODB_DATABASE=trudesk
-      - ELATICSEARCH_URI="http://elasticsearch:9200"
     volumes:
       - data-trudesk:/usr/src/trudesk
 
@@ -25,6 +24,8 @@ services:
     image: elasticsearch:8.0.0
     container_name: trudesk-elasticsearch
     restart: unless-stopped
+    ports:
+      - ${ES_PORT}:9200
     environment:
       - xpack.security.enabled=false
       - xpack.security.http.ssl.enabled=false
