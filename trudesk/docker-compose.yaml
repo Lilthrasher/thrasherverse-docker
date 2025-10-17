@@ -1,7 +1,6 @@
 services:
   trudesk:
     image: polonel/trudesk:latest
-    container_name: trudesk
     restart: unless-stopped
     ports:
       - ${PORT}:8118
@@ -10,18 +9,46 @@ services:
       - TRUDESK_DOCKER=true
       - TD_MONGODB_SERVER=mongodb
       - TD_MONGODB_DATABASE=trudesk
+      - USE_XFORWARDIP=true
     volumes:
-      - data-trudesk:/usr/src/trudesk
+      - uploads-trudesk:/usr/src/trudesk/public/uploads
+      - backups-trudesk:/usr/src/trudesk/backups
 
   mongodb:
-    image: mongo:5.0
-    container_name: trudesk-mongodb
+    image: mongo:5.0-focal
     restart: unless-stopped
+    ports:
+      - ${DB_PORT}:27017
     volumes:
-      - mongodata-trudesk:/data
+      - data-mongo:/var/lib/mongo
+      - db-mongo:/data/db:rw
+
+  elasticsearch:
+    image: elasticsearch:8.0.0
+    restart: unless-stopped
+    environment:
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+    mem_limit: 1073741824
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - ${ES_PORT}:9200
+    volumes:
+      - data-elasticsearch:/usr/share/elasticsearch/data
 
 volumes:
-  data-trudesk:
+  uploads-trudesk:
     external: true
-  mongodata-trudesk:
+  backups-trudesk:
+    external: true
+  data-mongo:
+    external: true
+  db-mongo:
+    external: true
+  data-elasticsearch:
     external: true
