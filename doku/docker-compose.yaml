@@ -4,7 +4,7 @@ services:
     container_name: doku
     restart: unless-stopped
     ports:
-      - ${PORT}:5000
+      - ${PORT}:9090
     environment:
       - HOST=${HOST}
     volumes:
