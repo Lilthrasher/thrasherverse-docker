@@ -1,0 +1,9 @@
+services:
+  doku:
+    image: amerkurev/doku
+    container_name: doku
+    restart: unless-stopped
+    ports:
+      - ${PORT}:5000
+    volumes:
+      - /:/hostroot:ro
