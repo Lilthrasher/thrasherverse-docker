@@ -1,12 +1,10 @@
 services:
   doku:
-    image: amerkurev/doku
+    image: amerkurev/doku:latest
     container_name: doku
     restart: unless-stopped
     ports:
       - ${PORT}:9090
-    environment:
-      - HOST=${HOST}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /:/hostroot:ro
