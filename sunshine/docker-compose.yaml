@@ -1,0 +1,22 @@
+services:
+  sunshine:
+    image: lizardbyte/sunshine:latest
+    container_name: sunshine
+    restart: unless-stopped
+    ports:
+      - "${TCP_PORTS}:47984-47990/tcp"
+      - "${UDP_PORTS}:47998-48000/udp"
+      - "${PORT}:48010"
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - sunshine:/config
+    ipc: host
+
+volumes:
+  sunshine:
+    external: true
