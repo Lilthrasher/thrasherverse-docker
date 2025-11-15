@@ -1,6 +1,6 @@
 services:
   sunshine:
-    image: lizardbyte/sunshine:latest
+    image: lizardbyte/sunshine:latest-${SUNSHINE_OS}
     container_name: sunshine
     restart: unless-stopped
     ports:
