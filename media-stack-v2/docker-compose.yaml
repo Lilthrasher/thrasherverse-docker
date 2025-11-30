@@ -9,7 +9,7 @@ services:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
     volumes:
-      - media-stack-data/qbittorrent/appdata:/config
+      - ${CONFIG_DIR}/qbittorrent/appdata:/config
       - ${DL_DIR}:/data/downloads
     restart: unless-stopped
 
@@ -24,7 +24,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - media-stack-data/prowlarr:/config
+      - ${CONFIG_DIR}/prowlarr:/config
 
   radarr: #default port is 7878
     image: lscr.io/linuxserver/radarr:latest
@@ -37,7 +37,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - media-stack-data/radarr:/config
+      - ${CONFIG_DIR}/radarr:/config
       - ${DATA_DIR}:/data
 
   radarr-anime: #default port is 7878
@@ -51,7 +51,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - media-stack-data/radarr-anime:/config
+      - ${CONFIG_DIR}/radarr-anime:/config
       - ${DATA_DIR}:/data
 
   sonarr: #default port is 8989
@@ -65,7 +65,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - media-stack-data/sonarr:/config
+      - ${CONFIG_DIR}/sonarr:/config
       - ${DATA_DIR}:/data
 
   sonarr-anime: #default port is 8989
@@ -79,7 +79,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - media-stack-data/sonarr-anime:/config
+      - ${CONFIG_DIR}/sonarr-anime:/config
       - ${DATA_DIR}:/data
 
   recyclarr:
@@ -88,9 +88,6 @@ services:
     restart: unless-stopped
     user: ${PUID}:${PGID}
     volumes:
-      - media-stack-data/recyclarr:/config
+      - ${CONFIG_DIR}/recyclarr:/config
     environment:
       - TZ=${TZ}
-
-volumes:
-  media-stack-data:
