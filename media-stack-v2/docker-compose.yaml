@@ -12,9 +12,6 @@ services:
       - media-stack-data/qbittorrent/appdata:/config
       - ${DL_DIR}:/data/downloads
     restart: unless-stopped
-    depends_on:
-      gluetun:
-        condition: service_healthy
 
   prowlarr: #default port is 9696
     image: lscr.io/linuxserver/prowlarr:latest
