@@ -13,7 +13,7 @@ services:
       - opt:/opt
       - profiles:/profiles
     ports:
-      - ${SETUP_PORT}:3000
+      - ${HTTP_PORT}:3000
       - ${HTTPS_PORT}:443
     restart: unless-stopped
 
