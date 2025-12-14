@@ -50,8 +50,8 @@ services:
     # env_file:
     #   - .env
     ports:
-      - "${COMPOSE_PORT_HTTP:-9000}:9000"
-      - "${COMPOSE_PORT_HTTPS:-9443}:9443"
+      - "${HTTP_PORT}:9000"
+      - "${HTTPS_PORT}:9443"
     depends_on:
       postgresql:
         condition: service_healthy
