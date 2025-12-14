@@ -3,7 +3,8 @@ services:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - 32400:32400
     devices:
       - /dev/dri:/dev/dri
     environment:
@@ -12,7 +13,7 @@ services:
       - TZ=${TZ}
       - VERSION=docker
     volumes:
-      - ${CONFIG_DIR}/plex:/config
+      - plex:/config
       - ${MEDIA_DIR}:/data/media
 
   tautulli: #default port is 8181
@@ -26,7 +27,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${CONFIG_DIR}/tautulli:/config
+      - tautulli:/config
 
   overseerr: #default port is 5055
     image: lscr.io/linuxserver/overseerr:latest
@@ -39,4 +40,9 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${CONFIG_DIR}/overseerr:/config
+      - overseerr:/config
+
+volumes:
+  plex:
+  tautulli:
+  overseerr:
