@@ -1,11 +1,9 @@
 services:
-  npm:
+  nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
     container_name: nginx-proxy-manager
     restart: unless-stopped
     ports:
-      - 80:80
-      - 443:443
       - ${PORT}:81
     volumes:
       - /etc/timezone:/etc/timezone
@@ -14,6 +12,4 @@ services:
 
 volumes:
   nginx-proxy-manager:
-    external: true
   nginx-proxy-manager-certs:
-    external: true
