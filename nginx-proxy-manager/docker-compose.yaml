@@ -7,9 +7,9 @@ services:
       - ${PORT}:81
     volumes:
       - /etc/timezone:/etc/timezone
-      - nginx-proxy-manager:/data
-      - nginx-proxy-manager-certs:/etc/letsencrypt
+      - npm-data:/data
+      - npm-certs:/etc/letsencrypt
 
 volumes:
-  nginx-proxy-manager:
-  nginx-proxy-manager-certs:
+  npm-data:
+  npm-certs:
