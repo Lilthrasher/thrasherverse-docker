@@ -14,7 +14,7 @@ services:
       - profiles:/profiles
     ports:
       - ${WIZARD_PORT}:3000
-      - ${HTTPS_PORT}:443
+      - ${HTTPS_PORT}:3443
     restart: unless-stopped
 
 volumes:
