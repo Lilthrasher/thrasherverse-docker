@@ -1,34 +1,32 @@
 services:
   wikijs-burningmesh:
     image: requarks/wiki:2
-    container_name: wikijs-server-burningmesh
+    container_name: wikijs-burningmesh
     depends_on:
-      - wikijs-db-burningmesh
+      - postgres-burningmesh
     ports:
       - ${PORT}:3000
     environment:
       - DB_TYPE=postgres
-      - DB_HOST=wikijs-db-burningmesh
+      - DB_HOST=postgres-burningmesh
       - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - DB_NAME=${DB_NAME}
       - UPGRADE_DB=true
     volumes:
-      - wikidata-burningmesh:/wiki/data
+      - wikidata:/wiki/data
 
-  wikijs-db-burningmesh:
+  postgres-burningmesh:
     image: postgres:17
-    container_name: wikijs-postgres-burningmesh
+    container_name: postgres-burningmesh
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_DB=${DB_NAME}
     volumes:
-      - pgdata-burningmesh:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
 
 volumes:
-  wikidata-burningmesh:
-    external: true
-  pgdata-burningmesh:
-    external: true
+  wikidata:
+  postgres:
