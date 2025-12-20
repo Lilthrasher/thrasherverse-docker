@@ -1,6 +1,7 @@
 services:
   trudesk:
     image: polonel/trudesk:latest
+    container_name: trudesk
     restart: unless-stopped
     ports:
       - ${PORT}:8118
@@ -16,6 +17,7 @@ services:
 
   mongodb:
     image: mongo:5.0-focal
+    container_name: mongodb-trudesk
     restart: unless-stopped
     volumes:
       - mongodb_data:/var/lib/mongo
