@@ -11,11 +11,11 @@ services:
     environment:
       - DB_USERNAME=${DB_USER}
       - DB_PASSWORD=${DB_PASS}
-      - DB_HOST=postgres
+      - DB_HOST=postgres-peppermint
       - SECRET=${DB_SECRET}
 
-  postgres:
-    container_name: postgres
+  postgres-peppermint:
+    container_name: postgres-peppermint
     image: postgres:latest
     restart: unless-stopped
     volumes:
