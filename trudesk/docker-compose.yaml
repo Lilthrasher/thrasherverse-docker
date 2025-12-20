@@ -21,25 +21,8 @@ services:
       - mongodb_data:/var/lib/mongo
       - mongodb:/data/db:rw
 
-  elasticsearch:
-    image: elasticsearch:8.0.0
-    restart: unless-stopped
-    environment:
-      - xpack.security.enabled=false
-      - xpack.security.http.ssl.enabled=false
-      - discovery.type=single-node
-      - bootstrap.memory_lock=true
-    mem_limit: 1073741824
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - elasticsearch:/usr/share/elasticsearch/data
-
 volumes:
   uploads:
   backups:
   mongodb_data:
   mongodb:
-  elasticsearch:
