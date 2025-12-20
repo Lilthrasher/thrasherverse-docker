@@ -1,7 +1,7 @@
 services:
   peppermint:
     container_name: peppermint
-    image: pepperlabs/peppermint:latest
+    image: pepperlabs/peppermint:0.5.4.2
     ports:
       - 3000:3000
       - 5003:5003
