@@ -11,17 +11,15 @@ services:
       - TD_MONGODB_DATABASE=trudesk
       - USE_XFORWARDIP=true
     volumes:
-      - uploads-trudesk:/usr/src/trudesk/public/uploads
-      - backups-trudesk:/usr/src/trudesk/backups
+      - uploads:/usr/src/trudesk/public/uploads
+      - backups:/usr/src/trudesk/backups
 
   mongodb:
     image: mongo:5.0-focal
     restart: unless-stopped
-    ports:
-      - ${DB_PORT}:27017
     volumes:
-      - data-mongo:/var/lib/mongo
-      - db-mongo:/data/db:rw
+      - mongodb_data:/var/lib/mongo
+      - mongodb:/data/db:rw
 
   elasticsearch:
     image: elasticsearch:8.0.0
@@ -36,19 +34,12 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - ${ES_PORT}:9200
     volumes:
-      - data-elasticsearch:/usr/share/elasticsearch/data
+      - elasticsearch:/usr/share/elasticsearch/data
 
 volumes:
-  uploads-trudesk:
-    external: true
-  backups-trudesk:
-    external: true
+  uploads:
+  backups:
   data-mongo:
-    external: true
-  db-mongo:
-    external: true
-  data-elasticsearch:
-    external: true
+  mongodb:
+  elasticsearch:
