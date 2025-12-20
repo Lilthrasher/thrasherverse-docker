@@ -1,0 +1,29 @@
+services:
+  peppermint:
+    container_name: peppermint
+    image: pepperlabs/peppermint:latest
+    ports:
+      - 3000:3000
+      - 5003:5003
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DB_USERNAME=${DB_USER}
+      DB_PASSWORD=${DB_PASS}
+      DB_HOST: "postgres"
+      SECRET=${DB_SECRET}
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER=${DB_USER}
+      POSTGRES_PASSWORD=${DB_PASS}
+      POSTGRES_DB: peppermint
+ 
+volumes:
+ postgres:
