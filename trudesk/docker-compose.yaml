@@ -40,6 +40,6 @@ services:
 volumes:
   uploads:
   backups:
-  data-mongo:
+  mongodb_data:
   mongodb:
   elasticsearch:
