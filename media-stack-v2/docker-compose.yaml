@@ -2,6 +2,10 @@ services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
+    ports:
+      - ${QBITTORENT_PORT}:8080
+      - ${TORRENT_PORT}:6881
+      - ${TORRENT_PORT}:6881/udp
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -9,7 +13,7 @@ services:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
     volumes:
-      - ${CONFIG_DIR}/qbittorrent/appdata:/config
+      - qbittorrent:/config
       - ${DL_DIR}:/data/downloads
     restart: unless-stopped
 
@@ -18,26 +22,26 @@ services:
     container_name: prowlarr
     restart: unless-stopped
     ports:
-      - 9696:9696
+      - ${PROWLARR_PORT}:9696
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${CONFIG_DIR}/prowlarr:/config
+      - prowlarr:/config
 
   radarr: #default port is 7878
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     restart: unless-stopped
     ports:
-      - 7878:7878
+      - ${RADARR_PORT}:7878
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${CONFIG_DIR}/radarr:/config
+      - radarr:/config
       - ${DATA_DIR}:/data
 
   radarr-anime: #default port is 7878
@@ -45,13 +49,13 @@ services:
     container_name: radarr-anime
     restart: unless-stopped
     ports:
-      - 8787:7878
+      - ${RADARR_ANIME_PORT}:7878
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${CONFIG_DIR}/radarr-anime:/config
+      - radarr-anime:/config
       - ${DATA_DIR}:/data
 
   sonarr: #default port is 8989
@@ -59,13 +63,13 @@ services:
     container_name: sonarr
     restart: unless-stopped
     ports:
-      - 8989:8989
+      - ${SONARR_PORT}:8989
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${CONFIG_DIR}/sonarr:/config
+      - sonarr:/config
       - ${DATA_DIR}:/data
 
   sonarr-anime: #default port is 8989
@@ -73,13 +77,13 @@ services:
     container_name: sonarr-anime
     restart: unless-stopped
     ports:
-      - 9898:8989
+      - ${SONARR_ANIME_PORT}:8989
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${CONFIG_DIR}/sonarr-anime:/config
+      - sonarr-anime:/config
       - ${DATA_DIR}:/data
 
   recyclarr:
@@ -88,6 +92,6 @@ services:
     restart: unless-stopped
     user: ${PUID}:${PGID}
     volumes:
-      - ${CONFIG_DIR}/recyclarr:/config
+      - recyclarr:/config
     environment:
       - TZ=${TZ}
