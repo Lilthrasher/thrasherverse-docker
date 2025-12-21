@@ -95,3 +95,12 @@ services:
       - recyclarr:/config
     environment:
       - TZ=${TZ}
+
+volumes:
+  qbittorrent:
+  prowlarr:
+  radarr:
+  radarr-anime:
+  sonarr:
+  sonarr-anime:
+  recyclarr:
