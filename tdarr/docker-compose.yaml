@@ -1,0 +1,35 @@
+services:
+  tdarr:
+    container_name: tdarr
+    image: ghcr.io/haveagitgat/tdarr:latest
+    restart: unless-stopped
+    ports:
+      - ${UI_PORT}:8265 # webUI port
+      - ${SERVER_PORT}:8266 # server port
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK_SET=002
+      - serverIP=0.0.0.0
+      - serverPort=8266
+      - webUIPort=8265
+      - internalNode=true
+      - inContainer=true
+      - ffmpegVersion=7
+      - nodeName=ThrasherVerse
+      - auth=false
+      - openBrowser=true
+      - maxLogSizeMB=10
+      - cronPluginUpdate=
+    volumes:
+      - tdarr:/app/server
+      - tdarr:/app/configs
+      - tdarr:/app/logs
+      - ${MEDIA_DIR}:/media
+      - ${TEMP_DIR}:/temp
+
+volumes:
+  tdarr:
