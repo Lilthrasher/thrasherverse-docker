@@ -1,6 +1,6 @@
 services:
   fileflows:
-    image: revenz/fileflows
+    image: revenz/fileflows:latest
     container_name: fileflows
     restart: unless-stopped
     ports:
@@ -13,12 +13,9 @@ services:
       - PGID=${PGID}
     volumes:
       - ${TRANSCODE_DIR}:/temp
-      - /mnt/plex-fast/data/transcode:/temp
       - ${MEDIA_DIR}:/media
-      - /mnt/plex-fast/data/media:/media
       - fileflows:/app/Data
       - fileflows:/app/Logs
 
 volumes:
   fileflows:
-    external: true
