@@ -14,8 +14,8 @@ services:
     volumes:
       - ${TRANSCODE_DIR}:/temp
       - ${MEDIA_DIR}:/media
-      - fileflows:/app/Data
-      - fileflows:/app/Logs
+      - data:/app/Data
+      - data:/app/Logs
 
 volumes:
-  fileflows:
+  data:
