@@ -14,6 +14,8 @@ services:
     volumes:
       - ${MEDIA_DIR}:/media
       - data:/app
+      - temp:/temp
 
 volumes:
   data:
+  temp:
