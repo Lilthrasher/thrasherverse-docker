@@ -12,7 +12,6 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
     volumes:
-      - ${TRANSCODE_DIR}:/temp
       - ${MEDIA_DIR}:/media
       - data:/app/Data
       - data:/app/Logs
