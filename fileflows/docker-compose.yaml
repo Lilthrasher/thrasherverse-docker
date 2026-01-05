@@ -14,7 +14,8 @@ services:
     volumes:
       - ${MEDIA_DIR}:/media
       - data:/app/Data
-      - data:/app/Logs
+      - logs:/app/Logs
 
 volumes:
   data:
+  logs:
