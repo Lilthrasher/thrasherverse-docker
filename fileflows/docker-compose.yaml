@@ -13,9 +13,7 @@ services:
       - PGID=${PGID}
     volumes:
       - ${MEDIA_DIR}:/media
-      - data:/app/Data
-      - logs:/app/Logs
+      - data:/app
 
 volumes:
   data:
-  logs:
