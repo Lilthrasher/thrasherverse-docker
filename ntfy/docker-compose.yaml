@@ -16,6 +16,4 @@ services:
 
 volumes:
   ntfy:
-    external: true
   ntfy-cache:
-    external: true
