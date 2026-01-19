@@ -6,7 +6,7 @@ services:
     ports:
       - "${PORT}:8086"
     volumes:
-      - influxdb:/var/lib/influxdb2
+      - data:/var/lib/influxdb2
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=${USERNAME}
@@ -16,5 +16,4 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${TOKEN}
 
 volumes:
-  influxdb:
-    external: true
+  data:
