@@ -15,8 +15,6 @@ services:
       POSTGRES_PASSWORD: ${PG_PASS:?database password required}
       POSTGRES_USER: ${PG_USER:-authentik}
       POSTGRES_DB: ${PG_DB:-authentik}
-    # env_file:
-    #   - .env
 
   redis:
     image: docker.io/library/redis:alpine
@@ -40,15 +38,13 @@ services:
     environment:
       AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
       AUTHENTIK_REDIS__HOST: redis
-      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_POSTGRESQL__HOST: authentik-postgres
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
     volumes:
       - ./media:/media
       - ./custom-templates:/templates
-    # env_file:
-    #   - .env
     ports:
       - "${HTTP_PORT}:9000"
       - "${HTTPS_PORT}:9443"
@@ -66,7 +62,7 @@ services:
     environment:
       AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
       AUTHENTIK_REDIS__HOST: redis
-      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_POSTGRESQL__HOST: authentik-postgres
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
@@ -82,8 +78,6 @@ services:
       - ./media:/media
       - ./certs:/certs
       - ./custom-templates:/templates
-    # env_file:
-    #   - .env
     depends_on:
       postgresql:
         condition: service_healthy
