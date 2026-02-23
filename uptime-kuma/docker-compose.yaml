@@ -7,7 +7,6 @@ services:
       - ${PORT}:3001
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/timezone:/etc/timezone
       - uptime-kuma:/app/data
     environment:
       - UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN=true
