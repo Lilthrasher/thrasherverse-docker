@@ -5,13 +5,14 @@ services:
     restart: unless-stopped
     ports:
       - 32400:32400
-    devices:
-      - /dev/dri:/dev/dri
+    runtime: nvidia
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
       - VERSION=docker
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
       - PLEX_CLAIM=${PLEX_CLAIM}
     volumes:
       - plex:/config
