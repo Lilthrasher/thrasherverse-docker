@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - data/postgres:/var/lib/postgresql/data
     networks:
       - local-ai
     healthcheck:
@@ -29,13 +29,16 @@ services:
     ports:
       - "${LOCAL_AI_HOST}:4000:4000"
     volumes:
-      - ./litellm/config.yaml:/app/config.yaml:ro
+      - litellm/config.yaml:/app/config.yaml:ro
     depends_on:
       postgres:
         condition: service_healthy
     networks:
       - local-ai
 
+volumes:
+  postgres:
+  litellm:
+
 networks:
   local-ai:
-    external: true
