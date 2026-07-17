@@ -4,16 +4,24 @@ services:
     container_name: fileflows
     restart: unless-stopped
     ports:
-      - ${PORT}:5000
-    devices:
-      - /dev/dri:/dev/dri
+      - "${PORT}:5000"
     environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
+      TZ: "${TZ}"
+      PUID: "${PUID}"
+      PGID: "${PGID}"
+      NVIDIA_VISIBLE_DEVICES: "all"
+      NVIDIA_DRIVER_CAPABILITIES: "compute,video,utility"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
     volumes:
-      - ${MEDIA_DIR}:/media
-      - ${TEMP_DIR}:/temp
+      - "${MEDIA_DIR}:/media"
+      - "${TEMP_DIR}:/temp"
       - data:/app
 
 volumes:
