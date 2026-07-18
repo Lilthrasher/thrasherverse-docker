@@ -11,8 +11,8 @@ services:
     ports:
       - 8090:8090
     volumes:
-      - ./beszel_data:/beszel_data
-      - ./beszel_socket:/beszel_socket
+      - data:/beszel_data
+      - socket:/beszel_socket
     # healthcheck:
     #   test: ['CMD', '/beszel', 'health', '--url', 'http://localhost:8090']
     #   interval: 120s
@@ -25,8 +25,8 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
-      - ./beszel_agent_data:/var/lib/beszel-agent
-      - ./beszel_socket:/beszel_socket
+      - agent_data:/var/lib/beszel-agent
+      - socket:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       LISTEN: /beszel_socket/beszel.sock
@@ -36,3 +36,8 @@ services:
     # healthcheck:
     #   test: ['CMD', '/agent', 'health']
     #   interval: 120s
+
+volumes:
+  data:
+  socket:
+  agent_data:
