@@ -31,9 +31,10 @@ services:
     volumes:
       - tautulli:/config
 
-  overseerr: #default port is 5055
-    image: lscr.io/linuxserver/overseerr:latest
-    container_name: overseerr
+  seerr: #default port is 5055
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
     restart: unless-stopped
     ports:
       - 5055:5055
