@@ -43,7 +43,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - overseerr:/config
+      - overseerr:/app/config
 
 volumes:
   plex:
