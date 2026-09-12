@@ -87,7 +87,7 @@ services:
       - ${PLEX_DIR}:/data
 
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
+    image: ghcr.io/recyclarr/recyclarr:8
     container_name: recyclarr
     restart: unless-stopped
     user: ${PUID}:${PGID}
