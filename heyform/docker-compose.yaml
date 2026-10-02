@@ -22,6 +22,12 @@ services:
       MONGO_URI: 'mongodb://mongodb:27017/heyform'
       REDIS_HOST: keydb
       REDIS_PORT: 6379
+      OIDC_CLIENT_ID: $OIDC_CLIENT_ID
+      OIDC_CLIENT_SECRET: $OIDC_CLIENT_SECRET
+      OIDC_ISSUER: $OIDC_ISSUER
+      OIDC_DISPLAY_NAME: $OIDC_DISPLAY_NAME
+      OIDC_CLIENT_AUTH_METHOD: $OIDC_CLIENT_AUTH_METHOD
+      OIDC_ALLOW_PROVISIONING: true
 
   mongodb:
     image: percona/percona-server-mongodb:4.4
