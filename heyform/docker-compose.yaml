@@ -19,7 +19,7 @@ services:
       APP_HOMEPAGE_URL: $APP_HOMEPAGE_URL
       SESSION_KEY: $SESSION_KEY
       FORM_ENCRYPTION_KEY: $FORM_ENCRYPTION_KEY
-      MONGO_URI: 'mongodb://mongo:27017/heyform'
+      MONGO_URI: 'mongodb://mongodb:27017/heyform'
       REDIS_HOST: keydb
       REDIS_PORT: 6379
 
