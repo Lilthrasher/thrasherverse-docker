@@ -30,7 +30,7 @@ services:
       - mongodb_data:/data/db
 
   keydb:
-    image: eqalpha/keydb:6.3.3
+    image: eqalpha/keydb:latest
     restart: always
     command: keydb-server --appendonly yes --protected-mode no
     volumes:
