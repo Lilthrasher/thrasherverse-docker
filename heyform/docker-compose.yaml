@@ -5,6 +5,7 @@ networks:
 services:
   heyform:
     image: heyform/community-edition:latest
+    container_name: heyform
     restart: always
     volumes:
       # Persist uploaded images
@@ -22,8 +23,9 @@ services:
       REDIS_HOST: keydb
       REDIS_PORT: 6379
 
-  mongo:
+  mongodb:
     image: percona/percona-server-mongodb:4.4
+    container_name: mongodb
     restart: always
     volumes:
       # Persist MongoDB data
@@ -31,6 +33,7 @@ services:
 
   keydb:
     image: eqalpha/keydb:latest
+    container_name: keydb
     restart: always
     command: keydb-server --appendonly yes --protected-mode no
     volumes:
