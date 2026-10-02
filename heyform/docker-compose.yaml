@@ -28,6 +28,7 @@ services:
       OIDC_DISPLAY_NAME: $OIDC_DISPLAY_NAME
       OIDC_CLIENT_AUTH_METHOD: $OIDC_CLIENT_AUTH_METHOD
       OIDC_ALLOW_PROVISIONING: true
+      APP_DISABLE_REGISTRATION: true
 
   mongodb:
     image: percona/percona-server-mongodb:4.4
