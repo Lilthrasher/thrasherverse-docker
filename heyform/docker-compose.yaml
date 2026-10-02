@@ -11,7 +11,7 @@ services:
       # Persist uploaded images
       - assets:/app/static/upload
     depends_on:
-      - mongo
+      - mongodb
       - keydb
     ports:
       - '9157:9157'
