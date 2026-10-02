@@ -25,7 +25,7 @@ services:
 
   mongodb:
     image: percona/percona-server-mongodb:4.4
-    container_name: mongodb
+    container_name: heyform-mongodb
     restart: always
     volumes:
       # Persist MongoDB data
@@ -33,7 +33,7 @@ services:
 
   keydb:
     image: eqalpha/keydb:latest
-    container_name: keydb
+    container_name: heyform-keydb
     restart: always
     command: keydb-server --appendonly yes --protected-mode no
     volumes:
