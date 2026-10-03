@@ -1,7 +1,7 @@
 services:
   gitea:
     image: docker.gitea.com/gitea:28.0.0-rootless
-    container-name: gitea
+    container_name: gitea
     restart: always
     volumes:
       - gitea-data:/var/lib/gitea
